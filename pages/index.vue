@@ -2,6 +2,7 @@
   <div>
     <Table />
     <AddBook />
+    <ConfirmPopup />
     <FloatongActionButton />
   </div>
 </template>
@@ -10,9 +11,10 @@
   import Table from '../components/Table';
   import FloatongActionButton from '../components/FloatingActionButton'
   import AddBook from '../components/Popup/AddBook'
+  import ConfirmPopup from '../components/Popup/ConfirmPopup'
 
   export default {
-    components: { Table, FloatongActionButton, AddBook },
+    components: { Table, FloatongActionButton, AddBook, ConfirmPopup },
   }
 </script>
 

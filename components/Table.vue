@@ -8,7 +8,7 @@
       <div class="md:grid grid-flow-col grid-cols-3 gap-5 mx-6 pb-6 md:m-0 md:mt-8 animate__animated animate__fadeIn animate__faster animate__delay-2s">
         <div v-for="book in filteredBooks" class="w-full mt-6 md:mt-0 rounded-lg p-6 bg-primary-light shadow-2xl transition-shadow duration-500 hover:shadow-white-2xl relative">
 
-          <img src="icon-bin.png" class="absolute right-0 top-0 w-8 h-8 m-3" @click="deleteBook(book.id)"/>
+          <img src="icon-bin.png" class="absolute right-0 top-0 w-8 h-8 m-3" @click="deleteBook(book)"/>
 
           <div class="text-2xl font-bold tracking-wide">{{book.title}}</div>
           <div class="w-24 mt-2 h-px bg-accent"/>
@@ -43,9 +43,8 @@
         }
         return out;
       },
-      async deleteBook(id) {
-        console.info("Deleted book with id " + id + ".")
-        await db.collection('books').doc(id).delete();
+      async deleteBook(book) {
+        this.$root.$emit('openConfirmPopup', book);
       }
     },
     async mounted() {
@@ -54,11 +53,14 @@
       } catch (e) {
         console.error(e)
       }
+      this.$root.$on("deleteBook", (book) => {
+        console.info("Deleted book with title " + book.title + ".")
+        db.collection('books').doc(book.id).delete();
+      });
     },
     computed: {
       ...mapGetters(['books']),
       filteredBooks() {
-        console.log(this.books)
         return this.books.filter(a => a.title.toUpperCase().includes(this.searchTerm.toUpperCase()) || a.isbn.toUpperCase().includes(this.searchTerm.toUpperCase()));
       }
     },
