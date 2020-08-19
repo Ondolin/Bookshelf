@@ -6,7 +6,10 @@
         <input type="text" class="w-full md:w-auto text-black rounded mt-6 md:mt-0 px-2 py-1 transition-all duration-500 border-2 border-primary focus:border-accent hover:border-accent outline-none" v-model="searchTerm" placeholder="Search">
       </div>
       <div class="md:grid grid-flow-col grid-cols-3 gap-5 mx-6 pb-6 md:m-0 md:mt-8 animate__animated animate__fadeIn animate__faster animate__delay-2s">
-        <div v-for="book in filteredBooks" class="w-full mt-6 md:mt-0 rounded-lg p-6 bg-primary-light shadow-2xl transition-shadow duration-500 hover:shadow-white-2xl">
+        <div v-for="book in filteredBooks" class="w-full mt-6 md:mt-0 rounded-lg p-6 bg-primary-light shadow-2xl transition-shadow duration-500 hover:shadow-white-2xl relative">
+
+          <img src="icon-bin.png" class="absolute right-0 top-0 w-8 h-8 m-3" @click="deleteBook(book.id)"/>
+
           <div class="text-2xl font-bold tracking-wide">{{book.title}}</div>
           <div class="w-24 mt-2 h-px bg-accent"/>
           <div class="mt-2"><span class="select-none">Verfügbare Teile: </span>{{parseArray(book.parts)}}</div>
@@ -21,9 +24,15 @@
 <script>
   import { mapGetters } from 'vuex';
   import "animate.css/animate.min.css";
+  import { db } from '../firebase/firebase'
 
   export default {
     name: 'Table',
+    data() {
+      return {
+        searchTerm: "",
+      }
+    },
     methods: {
       parseArray(teile) {
         let out = "";
@@ -34,11 +43,10 @@
           out += teile[i];
         }
         return out;
-      }
-    },
-    data() {
-      return {
-        searchTerm: "",
+      },
+      async deleteBook(id) {
+        console.info("Deleted book with id " + id + ".")
+        await db.collection('books').doc(id).delete();
       }
     },
     async mounted() {
@@ -51,6 +59,7 @@
     computed: {
       ...mapGetters(['books']),
       filteredBooks() {
+        console.log(this.books)
         return this.books.filter(a => a.title.toUpperCase().includes(this.searchTerm.toUpperCase()) || a.isbn.toUpperCase().includes(this.searchTerm.toUpperCase()));
       }
     },
