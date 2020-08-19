@@ -13,10 +13,9 @@
           <div class="text-2xl font-bold tracking-wide">{{book.title}}</div>
           <div class="w-24 mt-2 h-px bg-accent"/>
           <div class="mt-2"><span class="select-none">Verfügbare Teile: </span>{{parseArray(book.parts)}}</div>
-          <div class="mt-2"><span class="select-none">ISBN: </span>{{book.isbn}}</div>
+          <div class="mt-2" v-if="book.isbn != null"><span class="select-none">ISBN: </span>{{book.isbn}}</div>
         </div>
       </div>
-
     </div>
   </div>
 </template>

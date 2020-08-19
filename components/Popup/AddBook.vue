@@ -25,6 +25,9 @@
       this.$root.$on("openAddBookPopup", () => {
         this.$refs.popupContainer.active = true;
       });
+      this.$root.$on("closeAddBookPopup", () => {
+        this.$refs.popupContainer.active = false;
+      });
     },
     methods: {
       async addBook () {
@@ -41,6 +44,8 @@
         this.title = null;
         this.isbn = null;
         this.parts = null;
+
+        this.$root.$emit('closeAddBookPopup');
 
       },
       parseParts(partsString) {
