@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar></Navbar>
     <div class="columns">
       <div class="column">
         <Table></Table>
@@ -11,11 +10,10 @@
 
 <script>
   import Table from '../components/Table'
-  import Navbar from '../components/Navbar'
   import { getBooks } from '../plugins/API'
 
   export default {
-    components: { Table, Navbar },
+    components: { Table, },
     methods: {
       getBooksFromAPI() {
         return getBooks().stringify()
