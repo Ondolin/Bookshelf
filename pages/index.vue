@@ -1,23 +1,14 @@
 <template>
   <div>
-    <div class="columns">
-      <div class="column">
-        <Table></Table>
-      </div>
-    </div>
+    <Table />
   </div>
 </template>
 
 <script>
   import Table from '../components/Table'
-  import { getBooks } from '../plugins/API'
+  import { mapActions, mapGetters, mapState } from 'vuex'
 
   export default {
-    components: { Table, },
-    methods: {
-      getBooksFromAPI() {
-        return getBooks().stringify()
-      }
-    }
+    components: { Table },
   }
 </script>

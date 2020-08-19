@@ -13,9 +13,12 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/tailwindcss": "^1.2.1",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "nuxt": "^2.0.0"
+    "firebase": "^7.18.0",
+    "nuxt": "^2.0.0",
+    "vuefire": "^2.2.4",
+    "vuexfire": "^3.2.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",

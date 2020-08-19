@@ -1,39 +1,29 @@
 <template>
-  <div>
-    <div class="field">
-      <div class="control">
-        <input class="input is-primary" type="text" placeholder="Primary input">
+  <div class="">
+    <div class="container mx-auto">
+      <div class="md:flex flex-row justify-between items-center p-6 pb-2 md:p-0 md:pt-8">
+        <h1 class="text-3xl text-center tracking-wider select-none">Übersicht über alle Bücher</h1>
+        <input type="text" class="w-full md:w-auto text-black rounded mt-6 md:mt-0 px-2 py-1 transition-all duration-500 border-2 border-primary focus:border-accent hover:border-accent outline-none" v-model="searchTerm" placeholder="Search">
       </div>
+      <div class="md:grid grid-flow-col grid-cols-3 gap-5 mx-6 md:m-0 md:mt-8">
+        <div v-for="book in filteredBooks" class="w-full mt-6 md:mt-0 rounded-lg p-6 bg-primary-light shadow-2xl transition-shadow duration-500 hover:shadow-white-2xl">
+          <div class="text-2xl font-bold tracking-wide">{{book.name}}</div>
+          <div class="w-24 mt-2 h-px bg-accent"/>
+          <div class="mt-2"><span class="select-none">Verfügbare Teile: </span>{{parseArray(book.teile)}}</div>
+          <div class="mt-2"><span class="select-none">ISBN: </span>{{book.isbn}}</div>
+        </div>
+      </div>
+
     </div>
-    <table class="table is-h-centerd">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Teile</th>
-          <th>ISBN</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="book in books">
-          <td>{{book.name}}</td>
-          <td>{{parseArray(book.teile)}}</td>
-          <td>{{book.isbn}}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
 <script>
   import { getBooks } from '../plugins/API'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'Table',
-    data() {
-      return {
-        books: ""
-      }
-    },
     methods: {
       parseArray(teile) {
         let out = "";
@@ -46,15 +36,23 @@
         return out;
       }
     },
-    created: function () {
-      this.books = getBooks()
-    }
+    data() {
+      return {
+        searchTerm: "",
+      }
+    },
+    async mounted() {
+      try {
+        await this.$store.dispatch('bindBooks')
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    computed: {
+      ...mapGetters(['books']),
+      filteredBooks() {
+        return this.books.filter(a => a.name.toUpperCase().includes(this.searchTerm.toUpperCase()) || a.isbn.toUpperCase().includes(this.searchTerm.toUpperCase()));
+      }
+    },
   }
 </script>
-
-
-<style scoped>
-  .is-h-centerd {
-    margin: auto;
-  }
-</style>
