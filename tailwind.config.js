@@ -10,7 +10,9 @@ module.exports = {
       backgroundColor: {
         "primary": "#2C4251",
         "primary-light": "#406177",
-        "accent": "#ED474A"
+        "accent": "#ED474A",
+        "accent-light": "#ee595c",
+        "popup": "rgba(0,0,0,0.33)",
       },
       borderColor: {
         "accent": "#ED474A",
@@ -18,6 +20,9 @@ module.exports = {
       },
       boxShadow: {
         "white-2xl": "0 25px 50px -12px rgba(255, 255, 255, 0.2);"
+      },
+      textColor: {
+        "accent": "#ED474A"
       }
     }
 

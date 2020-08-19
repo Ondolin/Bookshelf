@@ -1,14 +1,23 @@
 <template>
   <div>
     <Table />
+    <AddBook />
+    <FloatongActionButton />
   </div>
 </template>
 
 <script>
-  import Table from '../components/Table'
-  import { mapActions, mapGetters, mapState } from 'vuex'
+  import Table from '../components/Table';
+  import FloatongActionButton from '../components/FloatingActionButton'
+  import AddBook from '../components/Popup/AddBook'
 
   export default {
-    components: { Table },
+    components: { Table, FloatongActionButton, AddBook },
   }
 </script>
+
+<style>
+  .invert-effect {
+    filter: invert(100%);
+  }
+</style>
