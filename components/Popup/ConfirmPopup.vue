@@ -1,8 +1,8 @@
 <template>
-  <PopupContainer ref="popupContainer" title="Möchtest du dieses Buch wirklich löschen?">
+  <PopupContainer ref="popupContainer" :title=buildTitle()>
     <div class="flex justify-between">
-      <button class="bg-accent rounded w-1/3 mt-6 px-2 py-1 select-none text-bold hover:bg-accent-light" @click="confirm">Löschen</button>
-      <button class="bg-primary rounded w-1/3 mt-6 px-2 py-1 select-none text-bold hover:bg-accent-light" @click="cancel">Abbrechen</button>
+      <button class="bg-accent rounded w-1/2 mt-6 px-2 py-1 select-none text-bold hover:bg-accent-light mr-2" @click="confirm">Löschen</button>
+      <button class="bg-primary rounded w-1/2 mt-6 px-2 py-1 select-none text-bold hover:bg-popup ml-2" @click="cancel">Abbrechen</button>
     </div>
   </PopupContainer>
 </template>
@@ -33,6 +33,9 @@
       },
       cancel() {
         this.$root.$emit('closeConfirmPopup');
+      },
+      buildTitle() {
+        return "Möchtest du " + this.book.title + " wirklich löschen?";
       }
     }
   }
