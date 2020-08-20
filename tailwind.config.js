@@ -12,7 +12,7 @@ module.exports = {
         "primary-light": "#406177",
         "accent": "#ED474A",
         "accent-light": "#ee595c",
-        "popup": "rgba(0,0,0,0.33)",
+        "popup": "rgba(0,0,0,0.45)",
       },
       borderColor: {
         "accent": "#ED474A",

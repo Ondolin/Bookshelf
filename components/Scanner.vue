@@ -27,3 +27,8 @@
     }
   }
 </script>
+<style>
+  #quagga canvas {
+    display: none;
+  }
+</style>

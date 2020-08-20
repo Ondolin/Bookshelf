@@ -8,8 +8,8 @@
 <script>
   export default {
     methods: {
-      openScanBookPopup() {
-        this.$root.$emit('openScanBookPopup');
+      openScanBookPopup () {
+        this.$root.$emit('openScanBookPopup')
       }
     }
   }
