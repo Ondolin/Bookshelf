@@ -16,6 +16,7 @@
       }
     },
     mounted () {
+      let self  = this;
       Quagga.init({
         inputStream : {
           name : "Live",
@@ -34,7 +35,7 @@
         Quagga.start();
         Quagga.onDetected(isbn => {
           console.log(isbn)
-          this.codes.push(isbn.codeResult.code)
+          self.codes.push(isbn.codeResult.code)
         });
       });
     }
