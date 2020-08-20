@@ -17,11 +17,15 @@
   import EditBook from '../components/Popup/EditBook'
   import Scanner from '../components/Scanner'
   import ScanBook from '../components/Popup/ScanBook'
+  import { db } from '../firebase/firebase'
 
   export default {
     components: { Table, FloatongActionButton, AddBook, ConfirmPopup, EditBook, Scanner, ScanBook },
     created () {
       this.$store.dispatch('user/subscribeUser');
+      window.addBook = (isbn) => this.$store.dispatch("scan/addScan", isbn);
+
+      db.collection('apiKeys').doc('isbndb').get().then(doc => this.$store.commit("scan/setApiKey", doc.data().key));
     }
   }
 </script>

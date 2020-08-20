@@ -1,9 +1,7 @@
 <template>
   <div>
     <div id="quagga"></div>
-    <div v-for="code in codes" class="block">
-      {{code}}
-    </div>
+    {{code}}
   </div>
 </template>
 <script>
@@ -12,7 +10,7 @@
   export default {
     data() {
       return {
-        codes: []
+        code: null
       }
     },
     mounted () {
@@ -31,13 +29,63 @@
           console.log(err);
           return
         }
-        console.log("Initialization finished. Ready to start");
+        console.log("Quagga initialization finished. Ready to start");
         Quagga.start();
         Quagga.onDetected(isbn => {
           console.log(isbn)
-          self.codes.push(isbn.codeResult.code)
+          if (self.validateISBN(isbn) && !self.$store.state.scan.scans.includes(isbn)){
+            self.$store.dispatch("scan/addScan", isbn.codeResult.code);
+            window.navigator.vibrate(50);
+          }
         });
       });
+    },
+    methods: {
+      validateISBN(isbn) {
+        if (!isbn.match("^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$"))
+          return false;
+
+        let sum,
+          weight,
+          digit,
+          check,
+          i;
+
+        isbn = isbn.replace(/[^0-9X]/gi, '');
+
+        if (isbn.length != 10 && isbn.length != 13) {
+          return false;
+        }
+
+        if (isbn.length == 13) {
+          sum = 0;
+          for (i = 0; i < 12; i++) {
+            digit = parseInt(isbn[i]);
+            if (i % 2 == 1) {
+              sum += 3*digit;
+            } else {
+              sum += digit;
+            }
+          }
+          check = (10 - (sum % 10)) % 10;
+          return (check == isbn[isbn.length-1]);
+        }
+
+        if (isbn.length == 10) {
+          weight = 10;
+          sum = 0;
+          for (i = 0; i < 9; i++) {
+            digit = parseInt(isbn[i]);
+            sum += weight*digit;
+            weight--;
+          }
+          check = 11 - (sum % 11);
+          if (check == 10) {
+            check = 'X';
+          }
+          return (check == isbn[isbn.length-1].toUpperCase());
+        }
+      }
     }
   }
 </script>
