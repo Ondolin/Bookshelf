@@ -13,12 +13,13 @@
         v-if="$store.state.user.user != null">
         <div v-for="book in filteredBooks"
              class="w-full mt-6 md:mt-0 rounded-lg p-6 bg-primary-light shadow-2xl transition-shadow duration-500 hover:shadow-white-2xl relative">
-          <img src="icon-edit.png" class="absolute right-0 top-0 w-6 h-6 m-3 invert-effect" @click="editBook(book)">
+          <img v-if="false" src="icon-edit.png" class="absolute right-0 top-0 w-6 h-6 m-3 invert-effect" @click="editBook(book)">
 
           <div class="text-2xl font-bold tracking-wide">{{book.title}}</div>
           <div class="w-24 mt-2 h-px bg-accent"/>
-          <div class="mt-2"><span class="select-none">Verfügbare Teile: </span>{{parseArray(book.parts)}}</div>
-          <div class="mt-2" v-if="book.isbn != null"><span class="select-none">ISBN: </span>{{book.isbn}}</div>
+          <div class="text-2xl font-bold tracking-wide">{{book.authors.toString()}}</div>
+          <!--div class="mt-2"><span class="select-none">Verfügbare Teile: </span>{{parseArray(book.parts)}}</div-->
+          <div class="mt-2" v-if="book.isbn != null"><span class="select-none">ISBN: </span>{{book.isbn13}}</div>
 
         </div>
       </div>
@@ -78,7 +79,7 @@
       ...
         mapGetters(['books']),
       filteredBooks () {
-        return this.books.filter(a => a.title.toUpperCase().includes(this.searchTerm.toUpperCase()) || a.isbn.toUpperCase().includes(this.searchTerm.toUpperCase()))
+        return this.books.filter(a => a.title.toUpperCase().includes(this.searchTerm.toUpperCase()) || a.isbn13.toUpperCase().includes(this.searchTerm.toUpperCase()))
       }
     }
     ,

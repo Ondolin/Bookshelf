@@ -1,7 +1,7 @@
 <template>
   <div class="fixed right-0 bottom-0 flex flex-col animate__animated animate__fadeInUp animate__delay-1s" v-if="$store.state.user.user != null">
-    <ScanBookButton class="mb-0"/>
-    <AddBookButton />
+    <ScanBookButton />
+    <!--AddBookButton /-->
   </div>
 
 </template>

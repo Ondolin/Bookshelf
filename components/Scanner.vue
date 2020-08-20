@@ -29,15 +29,21 @@
           console.log(err);
           return
         }
-        console.log("Quagga initialization finished. Ready to start");
+        console.info("Quagga initialization finished. Ready to start");
         Quagga.start();
-        Quagga.onDetected(isbn => {
-          console.log(isbn)
-          if (self.validateISBN(isbn.codeResult.code) && !self.$store.state.scan.scans.includes(isbn.codeResult.code)){
-            self.$store.dispatch("scan/addScan", isbn.codeResult.code);
-            window.navigator.vibrate(50);
-          }
-        });
+      });
+
+      Quagga.onDetected(isbn => {
+        if (self.validateISBN(isbn.codeResult.code) && !self.$store.state.scan.scans.includes(isbn.codeResult.code)){
+          self.$store.dispatch("scan/addScan", isbn.codeResult.code);
+        }
+      });
+
+      this.$root.$on("startQuagga", () => {
+        Quagga.start();
+      });
+      this.$root.$on("stopQuagga", () => {
+        Quagga.stop();
       });
     },
     methods: {
@@ -86,7 +92,7 @@
           return (check == isbn[isbn.length-1].toUpperCase());
         }
       }
-    }
+    },
   }
 </script>
 <style>
