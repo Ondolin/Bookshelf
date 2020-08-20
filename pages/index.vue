@@ -1,19 +1,16 @@
 <template>
-  <!--div>
+  <div>
     <Table />
     <AddBook />
     <ConfirmPopup />
     <EditBook />
     <FloatongActionButton />
-  </div-->
-  <div>
-    <Scanner />
   </div>
 </template>
 
 <script>
   import Table from '../components/Table';
-  import FloatongActionButton from '../components/FloatingActionButton'
+  import FloatongActionButton from '../components/FloatingActtionButtons/FloatingActionButton'
   import AddBook from '../components/Popup/AddBook'
   import ConfirmPopup from '../components/Popup/ConfirmPopup'
   import EditBook from '../components/Popup/EditBook'
