@@ -28,3 +28,5 @@ export const actions = {
     unbindFirestoreRef('books')
   }),
 }
+
+export const strict = false;

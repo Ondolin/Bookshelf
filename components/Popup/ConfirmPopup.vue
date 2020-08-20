@@ -35,6 +35,9 @@
         this.$root.$emit('closeConfirmPopup');
       },
       buildTitle() {
+        if (this.book == null) {
+          return "";
+        }
         return "Möchtest du " + this.book.title + " wirklich löschen?";
       }
     }
