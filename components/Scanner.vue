@@ -13,7 +13,7 @@
           target: document.querySelector('#quagga')    // Or '#yourElement' (optional)
         },
         decoder : {
-          readers : ["ean_13_reader"]
+          readers : ["ean_reader"]
         }
       }, function(err) {
         if (err) {
