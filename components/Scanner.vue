@@ -34,7 +34,7 @@
         Quagga.start();
         Quagga.onDetected(isbn => {
           console.log(isbn)
-          this.codes.push(isbn.code)
+          this.codes.push(isbn.codeResult.code)
         });
       });
     }
