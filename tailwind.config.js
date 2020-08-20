@@ -32,5 +32,6 @@ module.exports = {
     borderWidth: ['focus', 'active', 'hover'],
 
   },
-  plugins: []
+  plugins: [],
+  purge: false
 }
