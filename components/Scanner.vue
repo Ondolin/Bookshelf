@@ -33,7 +33,7 @@
         Quagga.start();
         Quagga.onDetected(isbn => {
           console.log(isbn)
-          if (self.validateISBN(isbn) && !self.$store.state.scan.scans.includes(isbn)){
+          if (self.validateISBN(isbn.codeResult.code) && !self.$store.state.scan.scans.includes(isbn.codeResult.code)){
             self.$store.dispatch("scan/addScan", isbn.codeResult.code);
             window.navigator.vibrate(50);
           }
