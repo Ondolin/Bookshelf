@@ -45,9 +45,17 @@
       async addBook () {
 
         let data = {
-          title: this.title,
+          authors: this.authors,
+          binding: null,
+          date_published: null,
+          image: null,
+          isbn: null,
           isbn13: this.isbn,
-          authors: this.authors
+          msrp: null,
+          publish_date: null,
+          publisher: null,
+          title: this.title,
+          title_long: null,
         }
 
         console.info("Add Book with title " + data.title + " to database.");
