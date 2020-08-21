@@ -1,18 +1,12 @@
 <template>
   <div>
     <div id="quagga"></div>
-    {{code}}
   </div>
 </template>
 <script>
   import Quagga from '@ericblade/quagga2';
 
   export default {
-    data() {
-      return {
-        code: null
-      }
-    },
     mounted () {
       let self  = this;
       Quagga.init({
@@ -34,6 +28,7 @@
       });
 
       Quagga.onDetected(isbn => {
+        console.log("Scanned")
         if (self.validateISBN(isbn.codeResult.code) && !self.$store.state.scan.scans.includes(isbn.codeResult.code)){
           self.$store.dispatch("scan/addScan", isbn.codeResult.code);
         }

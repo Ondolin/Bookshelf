@@ -38,8 +38,8 @@
     },
     methods: {
       addAllBooks() {
+        Promise.all(this.books.map((book) => books.doc(book.isbn13).set(book))).then();
         this.$root.$emit('closeScanBookPopup');
-        Promise.all(this.books.map((book) => books.add(book))).then();
         this.$store.commit('scan/clearStore');
       },
       removeBooks(book) {

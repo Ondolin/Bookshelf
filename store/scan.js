@@ -11,7 +11,14 @@ export const mutations = {
   addScan (state, scan) {
     state.scans.unshift(scan);
   },
-  addBookddBook (state, book) {
+  addBook (state, book) {
+    //Stringify author Array
+    if (book.authors.length > 1) {
+      book.authors = book.authors[1] + " " + book.authors[0];
+    } else {
+      book.authors = book.authors[0];
+    }
+
     state.scannedBooks.unshift(book);
   },
   setApiKey(state, key) {
@@ -31,7 +38,8 @@ export const actions = {
   async addScan(context, scan) {
     context.commit("addScan", scan);
     let { data } = await this.$axios.get('https://api2.isbndb.com/book/' + scan, {headers: { "Authorization": context.state.apiKey}});
-    context.commit("addBookddBook", data.book);
+
+    context.commit("addBook", data.book);
     window.navigator.vibrate([50, 50]);
   },
 }
