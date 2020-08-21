@@ -9,15 +9,15 @@
                v-model="searchTerm" placeholder="Search">
       </div>
       <div
-        class="md:grid grid-flow-col grid-cols-3 gap-5 mx-6 pb-6 md:m-0 md:mt-8 animate__animated animate__fadeIn animate__faster animate__delay-2s"
+        class="md:grid grid-col grid-cols-3 gap-5 mx-6 pb-6 md:m-0 md:mt-8 animate__animated animate__fadeIn animate__faster animate__delay-2s"
         v-if="$store.state.user.user != null">
         <div v-for="book in filteredBooks"
              class="w-full mt-6 md:mt-0 rounded-lg p-6 bg-primary-light shadow-2xl transition-shadow duration-500 hover:shadow-white-2xl relative">
-          <img v-if="false" src="icon-edit.png" class="absolute right-0 top-0 w-6 h-6 m-3 invert-effect" @click="editBook(book)">
+          <!--img src="icon-edit.png" class="absolute right-0 top-0 w-6 h-6 m-3 invert-effect" @click="editBook(book)"-->
 
           <div class="text-2xl font-bold tracking-wide">{{book.title}}</div>
           <div class="w-24 mt-2 h-px bg-accent"/>
-          <div class="text-2xl font-bold tracking-wide">{{book.authors.toString()}}</div>
+          <div class="mt-3 text-xl">{{book.authors.toString()}}</div>
           <!--div class="mt-2"><span class="select-none">Verfügbare Teile: </span>{{parseArray(book.parts)}}</div-->
           <div class="mt-2" v-if="book.isbn != null"><span class="select-none">ISBN: </span>{{book.isbn13}}</div>
 

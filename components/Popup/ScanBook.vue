@@ -1,5 +1,5 @@
 <template>
-  <PopupContainer ref="popupContainer" title="Scane ein Buch">
+  <PopupContainer ref="popupContainer" title="Scane ein Buch" :clear-store-after-closing="true">
     <Scanner />
     <div v-for="book in books" class="mt-4 flex justify-between">
       <div>
@@ -28,6 +28,7 @@
       this.$root.$on("closeScanBookPopup", () => {
         this.$refs.popupContainer.active = false;
         this.$root.$emit('closeQuagga');
+        this.$store.commit('scan/clearStore');
       });
     },
     computed: {
@@ -38,7 +39,8 @@
     methods: {
       addAllBooks() {
         this.$root.$emit('closeScanBookPopup');
-        Promise.all(this.books.map((book) => books.add(book))).then()
+        Promise.all(this.books.map((book) => books.add(book))).then();
+        this.$store.commit('scan/clearStore');
       },
       removeBooks(book) {
         this.$store.commit("scan/removeBook", book.isbn13)

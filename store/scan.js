@@ -20,6 +20,10 @@ export const mutations = {
   removeBook(state, isbn) {
     state.scans = state.scans.filter(scan => scan !== isbn);
     state.scannedBooks = state.scannedBooks.filter(book => book.isbn13 !== isbn);
+  },
+  clearStore(state) {
+    state.scans = [];
+    state.scannedBooks = [];
   }
 }
 

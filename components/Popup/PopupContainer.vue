@@ -10,7 +10,11 @@
       <slot/>
 
       <!-- Close icon in the top right -->
-      <div class="absolute top-0 right-0 w-16 h-16 flex justify-center items-center" @click="active = false">
+      <div v-if="clearStoreAfterClosing !== true" class="absolute top-0 right-0 w-16 h-16 flex justify-center items-center" @click="active = false">
+        <img src="icon-close.png" class="w-5 h-5 invert-effect"/>
+      </div>
+
+      <div v-if="clearStoreAfterClosing === true" class="absolute top-0 right-0 w-16 h-16 flex justify-center items-center" @click="clearStore()">
         <img src="icon-close.png" class="w-5 h-5 invert-effect"/>
       </div>
 
@@ -26,7 +30,12 @@
         active: false
       }
     },
-    props: ["title"]
+    props: ["title", "clearStoreAfterClosing"],
+    methods: {
+      clearStore() {
+        this.$root.$emit('closeScanBookPopup');
+      }
+    }
   }
 </script>
 
