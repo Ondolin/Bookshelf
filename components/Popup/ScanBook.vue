@@ -24,11 +24,13 @@
       this.$root.$on("openScanBookPopup", () => {
         this.$refs.popupContainer.active = true;
         this.$root.$emit('startQuagga');
+        this.$store.commit("scan/setSingleScan", true);
       });
       this.$root.$on("closeScanBookPopup", () => {
         this.$refs.popupContainer.active = false;
         this.$root.$emit('closeQuagga');
         this.$store.commit('scan/clearStore');
+        this.$store.commit("scan/setSingleScan", null);
       });
     },
     computed: {

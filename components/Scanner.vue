@@ -28,9 +28,14 @@
       });
 
       Quagga.onDetected(isbn => {
-        console.log("Scanned")
-        if (self.validateISBN(isbn.codeResult.code) && !self.$store.state.scan.scans.includes(isbn.codeResult.code)){
-          self.$store.dispatch("scan/addScan", isbn.codeResult.code);
+        if (self.validateISBN(isbn.codeResult.code)){
+          if (self.$store.state.scan.singleScan) {
+            this.$root.$emit('updateISBN', isbn.codeResult.code);
+          } else {
+            if (!self.$store.state.scan.scans.includes(isbn.codeResult.code)) {
+              self.$store.dispatch("scan/addScan", isbn.codeResult.code);
+            }
+          }
         }
       });
 

@@ -4,7 +4,8 @@ import { books } from '../firebase/collections'
 export const state = () => ({
   scans: [],
   scannedBooks: [],
-  apiKey: ""
+  apiKey: "",
+  singleScan: null
 })
 
 export const mutations = {
@@ -31,6 +32,9 @@ export const mutations = {
   clearStore(state) {
     state.scans = [];
     state.scannedBooks = [];
+  },
+  setSingleScan(state, single) {
+    state.singleScan = single;
   }
 }
 
@@ -40,6 +44,6 @@ export const actions = {
     let { data } = await this.$axios.get('https://api2.isbndb.com/book/' + scan, {headers: { "Authorization": context.state.apiKey}});
 
     context.commit("addBook", data.book);
-    window.navigator.vibrate([50, 50]);
+    window.navigator.vibrate(50);
   },
 }

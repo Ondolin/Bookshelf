@@ -22,22 +22,22 @@
         title: null,
         isbn: null,
         authors: null,
+        active: false,
       }
     },
     mounted() {
       this.$root.$on("openAddBookPopup", () => {
         this.$refs.popupContainer.active = true;
+        this.$store.commit("scan/setSingleScan", true);
       });
       this.$root.$on("closeAddBookPopup", () => {
         this.$refs.popupContainer.active = false;
+        this.active = false;
+        this.$store.commit("scan/setSingleScan", null);
       });
 
-      let self = this;
-      Quagga.onDetected(isbn => {
-        console.log("Scanned")
-        if (self.validateISBN(isbn.codeResult.code)){
-          self.isbn = isbn.codeResult.code;
-        }
+      this.$root.$on("updateISBN", (isbn) => {
+        this.isbn = isbn;
       });
 
     },
